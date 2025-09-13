@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaterEdge - AI-Powered Urban Water Resilience Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'water-blue': '#0EA5E9',
+                        'deep-blue': '#0369A1',
+                        'eco-green': '#10B981',
+                        'light-green': '#34D399',
+                        'tech-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0EA5E9 0%, #10B981 100%);
+        }
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .chart-bar {
+            transition: height 0.8s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-water-blue to-eco-green rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-water-blue to-eco-green bg-clip-text text-transparent">WaterEdge</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#problem" class="text-gray-600 hover:text-water-blue transition-colors">Problem</a>
+                    <a href="#solution" class="text-gray-600 hover:text-water-blue transition-colors">Solution</a>
+                    <a href="#technology" class="text-gray-600 hover:text-water-blue transition-colors">Technology</a>
+                    <a href="#market" class="text-gray-600 hover:text-water-blue transition-colors">Market</a>
+                    <a href="#team" class="text-gray-600 hover:text-water-blue transition-colors">Team</a>
+                </div>
+                <button id="contactBtn" class="bg-gradient-to-r from-water-blue to-eco-green text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all">
+                    Contact Us
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900">Contact Us</h3>
+                    <button id="closeModal" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <form id="contactForm" action="https://formspree.io/f/xeoldzoa" method="POST" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+                        <input type="text" id="name" name="name" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-water-blue focus:border-transparent transition-all"
+                               placeholder="Enter your full name">
+                        <div id="nameError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid name (letters and spaces only)</div>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                        <input type="email" id="email" name="email" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-water-blue focus:border-transparent transition-all"
+                               placeholder="Enter your email address">
+                        <div id="emailError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message *</label>
+                        <textarea id="message" name="message" required rows="4"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-water-blue focus:border-transparent transition-all resize-none"
+                                  placeholder="Tell us about your interest in WaterEdge..."></textarea>
+                        <div id="messageError" class="text-red-500 text-sm mt-1 hidden">Please enter a message (minimum 10 characters)</div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <button type="button" id="cancelBtn" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all">
+                            Cancel
+                        </button>
+                        <button type="submit" id="submitBtn" class="flex-1 bg-gradient-to-r from-water-blue to-eco-green text-white px-6 py-3 rounded-lg hover:shadow-lg transition-all">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Success Message -->
+                <div id="successMessage" class="hidden text-center py-8">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Message Sent!</h4>
+                    <p class="text-gray-600 mb-4">Thank you for contacting WaterEdge. We'll get back to you within 24 hours.</p>
+                    <button id="closeSuccessBtn" class="bg-gradient-to-r from-water-blue to-eco-green text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-16 hero-pattern min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <h1 class="text-5xl lg:text-6xl font-bold leading-tight">
+                            <span class="text-gray-900">AI-Powered</span>
+                            <span class="bg-gradient-to-r from-water-blue to-eco-green bg-clip-text text-transparent block">Urban Water Resilience</span>
+                        </h1>
+                        <p class="text-xl text-gray-600 leading-relaxed">
+                            Making cities climate-resilient and water-secure through intelligent geospatial analytics, IoT monitoring, and automated compliance reporting.
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-gradient-to-r from-water-blue to-eco-green text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl transition-all">
+                            Request Demo
+                        </button>
+                        <button class="border-2 border-water-blue text-water-blue px-8 py-4 rounded-lg text-lg font-semibold hover:bg-water-blue hover:text-white transition-all">
+                            View Case Studies
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-8 pt-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-water-blue">₹500-700Cr</div>
+                            <div class="text-sm text-gray-600">Market Size</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-eco-green">35M+</div>
+                            <div class="text-sm text-gray-600">Urban Population</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-deep-blue">10%</div>
+                            <div class="text-sm text-gray-600">Target Penetration</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="animate-float">
+                        <svg class="w-full h-96" viewBox="0 0 400 300" fill="none">
+                            <!-- City Skyline -->
+                            <rect x="50" y="180" width="40" height="80" fill="#64748B" rx="4"/>
+                            <rect x="100" y="160" width="35" height="100" fill="#475569" rx="4"/>
+                            <rect x="145" y="170" width="45" height="90" fill="#64748B" rx="4"/>
+                            <rect x="200" y="150" width="38" height="110" fill="#475569" rx="4"/>
+                            <rect x="250" y="165" width="42" height="95" fill="#64748B" rx="4"/>
+                            <rect x="300" y="175" width="36" height="85" fill="#475569" rx="4"/>
+                            
+                            <!-- Water Drops -->
+                            <circle cx="120" cy="80" r="8" fill="#0EA5E9" opacity="0.8"/>
+                            <circle cx="180" cy="60" r="6" fill="#0EA5E9" opacity="0.6"/>
+                            <circle cx="240" cy="90" r="7" fill="#0EA5E9" opacity="0.7"/>
+                            <circle cx="280" cy="70" r="5" fill="#0EA5E9" opacity="0.5"/>
+                            
+                            <!-- AI Network Lines -->
+                            <path d="M120 88 L180 66 L240 97 L280 75" stroke="#10B981" stroke-width="2" stroke-dasharray="5,5" opacity="0.8"/>
+                            
+                            <!-- Ground Water -->
+                            <ellipse cx="200" cy="280" rx="150" ry="15" fill="#0EA5E9" opacity="0.3"/>
+                            
+                            <!-- IoT Sensors -->
+                            <circle cx="75" cy="175" r="3" fill="#10B981"/>
+                            <circle cx="165" cy="155" r="3" fill="#10B981"/>
+                            <circle cx="275" cy="160" r="3" fill="#10B981"/>
+                            
+                            <!-- Data Visualization -->
+                            <rect x="320" y="40" width="60" height="40" fill="white" stroke="#0EA5E9" stroke-width="2" rx="4"/>
+                            <text x="350" y="55" text-anchor="middle" fill="#0EA5E9" font-size="10" font-weight="bold">AI</text>
+                            <text x="350" y="70" text-anchor="middle" fill="#10B981" font-size="8">Analytics</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">The Urban Water Crisis</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Cities face unprecedented water challenges that traditional solutions cannot address</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Impervious Surfaces</h3>
+                    <p class="text-gray-600">High concrete coverage disrupts natural water cycles, preventing groundwater recharge and increasing flood risk.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Severe Droughts</h3>
+                    <p class="text-gray-600">2019 Day Zero crisis in Chennai highlighted dangerous over-reliance on groundwater extraction without recharge.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Catastrophic Floods</h3>
+                    <p class="text-gray-600">2015 and 2023 floods revealed inadequate drainage systems and poor flood management infrastructure.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Underutilized Rainwater</h3>
+                    <p class="text-gray-600">Manual rainwater harvesting systems lack enforcement and optimization, missing massive recharge opportunities.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Reactive Flood Models</h3>
+                    <p class="text-gray-600">Current systems only provide warnings but offer no preventive solutions or actionable insights.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Poor Groundwater Management</h3>
+                    <p class="text-gray-600">Focus on extraction without strategic recharge planning leads to unsustainable water resource depletion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Intelligent Water Resilience Solution</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">AI-driven platform that optimizes urban water systems for both recharge and flood prevention</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
+                <div class="space-y-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-water-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">AI Geospatial Analytics</h3>
+                            <p class="text-gray-600">Optimizes concrete vs. soil ratio across urban areas to maximize groundwater recharge while preventing flood runoff.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-eco-green rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">AI Floor Plans</h3>
+                            <p class="text-gray-600">Auto-generates optimized building designs integrating recharge systems in rooftops, driveways, and gardens.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-deep-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">IoT Sensor Validation</h3>
+                            <p class="text-gray-600">Real-time monitoring of rainfall, soil moisture, and groundwater levels for data-driven decision making.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-light-green rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Automated Compliance</h3>
+                            <p class="text-gray-600">Generates comprehensive reports for government standards, ESG requirements, and building codes automatically.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-water-blue/10 to-eco-green/10 p-8 rounded-2xl">
+                    <svg class="w-full h-80" viewBox="0 0 400 320" fill="none">
+                        <!-- Dashboard Frame -->
+                        <rect x="20" y="20" width="360" height="280" fill="white" stroke="#0EA5E9" stroke-width="2" rx="12"/>
+                        
+                        <!-- Header -->
+                        <rect x="30" y="30" width="340" height="40" fill="#0EA5E9" rx="6"/>
+                        <text x="200" y="55" text-anchor="middle" fill="white" font-size="16" font-weight="bold">WaterEdge Dashboard</text>
+                        
+                        <!-- Charts -->
+                        <rect x="40" y="90" width="150" height="80" fill="#F0F9FF" stroke="#0EA5E9" rx="4"/>
+                        <text x="115" y="110" text-anchor="middle" fill="#0369A1" font-size="12" font-weight="bold">Recharge Optimization</text>
+                        
+                        <!-- Bar Chart -->
+                        <rect x="50" y="120" width="15" height="40" fill="#10B981"/>
+                        <rect x="70" y="130" width="15" height="30" fill="#34D399"/>
+                        <rect x="90" y="125" width="15" height="35" fill="#10B981"/>
+                        <rect x="110" y="135" width="15" height="25" fill="#34D399"/>
+                        <rect x="130" y="115" width="15" height="45" fill="#10B981"/>
+                        
+                        <!-- IoT Sensors -->
+                        <rect x="210" y="90" width="150" height="80" fill="#F0FDF4" stroke="#10B981" rx="4"/>
+                        <text x="285" y="110" text-anchor="middle" fill="#065F46" font-size="12" font-weight="bold">IoT Sensor Network</text>
+                        
+                        <!-- Sensor Dots -->
+                        <circle cx="230" cy="130" r="4" fill="#10B981"/>
+                        <circle cx="260" cy="140" r="4" fill="#34D399"/>
+                        <circle cx="290" cy="125" r="4" fill="#10B981"/>
+                        <circle cx="320" cy="145" r="4" fill="#34D399"/>
+                        <circle cx="340" cy="135" r="4" fill="#10B981"/>
+                        
+                        <!-- Connection Lines -->
+                        <path d="M230 130 L260 140 L290 125 L320 145 L340 135" stroke="#10B981" stroke-width="2" fill="none"/>
+                        
+                        <!-- Floor Plan -->
+                        <rect x="40" y="190" width="150" height="80" fill="#FEF3C7" stroke="#F59E0B" rx="4"/>
+                        <text x="115" y="210" text-anchor="middle" fill="#92400E" font-size="12" font-weight="bold">AI Floor Plan</text>
+                        
+                        <!-- Building Layout -->
+                        <rect x="60" y="220" width="40" height="30" fill="none" stroke="#F59E0B" stroke-width="2"/>
+                        <rect x="110" y="220" width="40" height="30" fill="none" stroke="#F59E0B" stroke-width="2"/>
+                        <circle cx="80" cy="235" r="3" fill="#10B981"/>
+                        <circle cx="130" cy="235" r="3" fill="#10B981"/>
+                        
+                        <!-- Compliance Report -->
+                        <rect x="210" y="190" width="150" height="80" fill="#EDE9FE" stroke="#8B5CF6" rx="4"/>
+                        <text x="285" y="210" text-anchor="middle" fill="#5B21B6" font-size="12" font-weight="bold">Compliance Report</text>
+                        
+                        <!-- Report Lines -->
+                        <rect x="220" y="220" width="130" height="3" fill="#8B5CF6" rx="1"/>
+                        <rect x="220" y="230" width="100" height="3" fill="#A78BFA" rx="1"/>
+                        <rect x="220" y="240" width="120" height="3" fill="#8B5CF6" rx="1"/>
+                        <rect x="220" y="250" width="90" height="3" fill="#A78BFA" rx="1"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Advanced Technology Architecture</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Integrated platform combining AI, IoT, and geospatial analytics for comprehensive water management</p>
+            </div>
+
+            <div class="grid lg:grid-cols-4 gap-8 mb-16">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-water-blue to-deep-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Data Integration</h3>
+                    <p class="text-gray-600 text-sm">Consolidates fragmented urban water data from multiple agencies</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-eco-green to-light-green rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">AI Engine</h3>
+                    <p class="text-gray-600 text-sm">Balances recharge optimization with flood prevention strategies</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">IoT Monitoring</h3>
+                    <p class="text-gray-600 text-sm">Real-time environmental data collection and validation</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Compliance Automation</h3>
+                    <p class="text-gray-600 text-sm">Automated ESG and regulatory reporting generation</p>
+                </div>
+            </div>
+
+            <!-- Technology Flow Diagram -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <svg class="w-full h-64" viewBox="0 0 800 200" fill="none">
+                    <!-- Data Sources -->
+                    <rect x="20" y="20" width="120" height="60" fill="#F0F9FF" stroke="#0EA5E9" stroke-width="2" rx="8"/>
+                    <text x="80" y="40" text-anchor="middle" fill="#0369A1" font-size="12" font-weight="bold">Government</text>
+                    <text x="80" y="55" text-anchor="middle" fill="#0369A1" font-size="12" font-weight="bold">Data Sources</text>
+                    
+                    <rect x="20" y="100" width="120" height="60" fill="#F0FDF4" stroke="#10B981" stroke-width="2" rx="8"/>
+                    <text x="80" y="120" text-anchor="middle" fill="#065F46" font-size="12" font-weight="bold">IoT Sensor</text>
+                    <text x="80" y="135" text-anchor="middle" fill="#065F46" font-size="12" font-weight="bold">Network</text>
+                    
+                    <!-- AI Processing -->
+                    <rect x="200" y="60" width="150" height="80" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2" rx="8"/>
+                    <text x="275" y="85" text-anchor="middle" fill="#92400E" font-size="14" font-weight="bold">AI Processing</text>
+                    <text x="275" y="105" text-anchor="middle" fill="#92400E" font-size="12">Geospatial Analytics</text>
+                    <text x="275" y="120" text-anchor="middle" fill="#92400E" font-size="12">Optimization Engine</text>
+                    
+                    <!-- Outputs -->
+                    <rect x="420" y="20" width="120" height="50" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2" rx="8"/>
+                    <text x="480" y="40" text-anchor="middle" fill="#5B21B6" font-size="12" font-weight="bold">Floor Plans</text>
+                    <text x="480" y="55" text-anchor="middle" fill="#5B21B6" font-size="12">& Designs</text>
+                    
+                    <rect x="420" y="80" width="120" height="50" fill="#FEF2F2" stroke="#EF4444" stroke-width="2" rx="8"/>
+                    <text x="480" y="100" text-anchor="middle" fill="#991B1B" font-size="12" font-weight="bold">Compliance</text>
+                    <text x="480" y="115" text-anchor="middle" fill="#991B1B" font-size="12">Reports</text>
+                    
+                    <rect x="420" y="140" width="120" height="50" fill="#F0F9FF" stroke="#0EA5E9" stroke-width="2" rx="8"/>
+                    <text x="480" y="160" text-anchor="middle" fill="#0369A1" font-size="12" font-weight="bold">Interactive</text>
+                    <text x="480" y="175" text-anchor="middle" fill="#0369A1" font-size="12">Dashboards</text>
+                    
+                    <!-- Stakeholders -->
+                    <rect x="600" y="30" width="100" height="40" fill="#F9FAFB" stroke="#6B7280" stroke-width="2" rx="6"/>
+                    <text x="650" y="50" text-anchor="middle" fill="#374151" font-size="11" font-weight="bold">Government</text>
+                    
+                    <rect x="600" y="80" width="100" height="40" fill="#F9FAFB" stroke="#6B7280" stroke-width="2" rx="6"/>
+                    <text x="650" y="100" text-anchor="middle" fill="#374151" font-size="11" font-weight="bold">Builders</text>
+                    
+                    <rect x="600" y="130" width="100" height="40" fill="#F9FAFB" stroke="#6B7280" stroke-width="2" rx="6"/>
+                    <text x="650" y="150" text-anchor="middle" fill="#374151" font-size="11" font-weight="bold">Citizens</text>
+                    
+                    <!-- Arrows -->
+                    <path d="M140 50 L200 80" stroke="#0EA5E9" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M140 130 L200 120" stroke="#10B981" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M350 80 L420 45" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M350 100 L420 105" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M350 120 L420 165" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M540 45 L600 50" stroke="#8B5CF6" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M540 105 L600 100" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M540 165 L600 150" stroke="#0EA5E9" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#6B7280"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market & Business Model Section -->
+    <section id="market" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Market Opportunity & Business Model</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Massive addressable market with scalable SaaS revenue model</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16 mb-16">
+                <!-- Market Size -->
+                <div class="space-y-8">
+                    <h3 class="text-2xl font-bold text-gray-900">Market Opportunity</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between p-4 bg-water-blue/10 rounded-lg">
+                            <span class="font-semibold text-gray-900">Total Addressable Market</span>
+                            <span class="text-2xl font-bold text-water-blue">₹500-700 Cr</span>
+                        </div>
+                        <div class="text-sm text-gray-600 -mt-2 ml-4">Urban digital water solutions</div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-eco-green/10 rounded-lg">
+                            <span class="font-semibold text-gray-900">Urban Population</span>
+                            <span class="text-2xl font-bold text-eco-green">35M</span>
+                        </div>
+                        <div class="text-sm text-gray-600 -mt-2 ml-4">Facing water scarcity & floods</div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-deep-blue/10 rounded-lg">
+                            <span class="font-semibold text-gray-900">Chennai New Buildings/Year</span>
+                            <span class="text-2xl font-bold text-deep-blue">6,000</span>
+                        </div>
+                        <div class="text-sm text-gray-600 -mt-2 ml-4">Need recharge & compliance</div>
+                        
+                        <div class="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
+                            <h4 class="font-semibold text-purple-800 mb-2">Government Support</h4>
+                            <p class="text-sm text-purple-700">AMRUT 2.0, Jal Jeevan Mission, TN Rainwater Mandate</p>
+                        </div>
+                        
+                        <div class="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
+                            <h4 class="font-semibold text-orange-800 mb-2">Revenue Potential</h4>
+                            <p class="text-sm text-orange-700">₹50–70 Cr in 3 years with 10% market penetration</p>
+                        </div>
+                        
+                        <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">Scalable</h4>
+                            <p class="text-sm text-green-700">Expand to other Indian cities & global markets</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Model -->
+                <div class="space-y-8">
+                    <h3 class="text-2xl font-bold text-gray-900">Tiered SaaS Model</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-lg font-bold text-green-800">Free Tier</h4>
+                                <span class="text-2xl font-bold text-green-600">₹0</span>
+                            </div>
+                            <p class="text-green-700 mb-3">Citizens, NGOs, Students</p>
+                            <ul class="text-sm text-green-600 space-y-1">
+                                <li>• Trend visualizations</li>
+                                <li>• Basic water data access</li>
+                                <li>• Community insights</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-lg font-bold text-blue-800">Premium</h4>
+                                <span class="text-2xl font-bold text-blue-600">₹50K-2L</span>
+                            </div>
+                            <p class="text-blue-700 mb-3">Homeowners, Builders</p>
+                            <ul class="text-sm text-blue-600 space-y-1">
+                                <li>• Site surveys & analysis</li>
+                                <li>• AI-generated floor plans</li>
+                                <li>• Compliance reports</li>
+                                <li>• IoT sensor integration</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-purple-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-lg font-bold text-purple-800">Pro</h4>
+                                <span class="text-2xl font-bold text-purple-600">₹5L-20L</span>
+                            </div>
+                            <p class="text-purple-700 mb-3">Government, Smart Cities</p>
+                            <ul class="text-sm text-purple-600 space-y-1">
+                                <li>• Multi-site support</li>
+                                <li>• API access</li>
+                                <li>• Full compliance reporting</li>
+                                <li>• Custom integrations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Advantage Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Competitive Advantage</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Unique dual optimization approach with integrated AI, IoT, and compliance automation</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-br from-water-blue to-eco-green rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Dual Optimization</h3>
+                    <p class="text-gray-600">Only platform that simultaneously optimizes for groundwater recharge AND flood prevention, unlike competitors who focus on single objectives.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-br from-eco-green to-light-green rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Complete Integration</h3>
+                    <p class="text-gray-600">End-to-end solution combining AI floor plans, IoT validation, and automated compliance reporting in one platform.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-br from-deep-blue to-purple-600 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Actionable Design</h3>
+                    <p class="text-gray-600">Goes beyond data visualization to provide specific design recommendations and automated floor plan generation for immediate implementation.</p>
+                </div>
+            </div>
+
+            <!-- Competitive Comparison -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Competitive Landscape</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="text-left py-4 px-6 font-bold text-gray-900">Feature</th>
+                                <th class="text-center py-4 px-6 font-bold text-water-blue">WaterEdge</th>
+                                <th class="text-center py-4 px-6 font-bold text-gray-600">Government DSS</th>
+                                <th class="text-center py-4 px-6 font-bold text-gray-600">IoT Startups</th>
+                                <th class="text-center py-4 px-6 font-bold text-gray-600">GeoAI Firms</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-4 px-6 font-semibold">Dual Optimization</td>
+                                <td class="py-4 px-6 text-center"><span class="text-green-500 text-xl">✓</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-red-500 text-xl">✗</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-red-500 text-xl">✗</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-red-500 text-xl">✗</span></td>
+                            </tr>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-4 px-6 font-semibold">AI Floor Plans</td>
+                                <td class="py-4 px-6 text-center"><span class="text-green-500 text-xl">✓</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-red-500 text-xl">✗</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-red-500 text-xl">✗</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-yellow-500 text-xl">~</span></td>
+                            </tr>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-4 px-6 font-semibold">IoT Integration</td>
+                                <td class="py-4 px-6 text-center"><span class="text-green-500 text-xl">✓</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-yellow-500 text-xl">~</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-green-500 text-xl">✓</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-red-500 text-xl">✗</span></td>
+                            </tr>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-4 px-6 font-semibold">Automated Compliance</td>
+                                <td class="py-4 px-6 text-center"><span class="text-green-500 text-xl">✓</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-yellow-500 text-xl">~</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-red-500 text-xl">✗</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-red-500 text-xl">✗</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-6 font-semibold">Actionable Insights</td>
+                                <td class="py-4 px-6 text-center"><span class="text-green-500 text-xl">✓</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-red-500 text-xl">✗</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-yellow-500 text-xl">~</span></td>
+                                <td class="py-4 px-6 text-center"><span class="text-yellow-500 text-xl">~</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <!-- Team Section -->
+    <section id="team" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Leadership Team</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Experienced founders driving innovation in urban water resilience</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-center card-hover">
+                    <div class="w-32 h-32 bg-gradient-to-br from-water-blue to-eco-green rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-4xl font-bold text-white">I</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Iswariya</h3>
+                    <p class="text-lg text-water-blue font-semibold mb-4">Founder</p>
+                    <p class="text-gray-600 mb-6">B.Tech in Computer Science Engineering from SRM University. Visionary tech enthusiast and entrepreneur with expertise in AI, ML, and data analytics. Passionate about leveraging emerging technologies to build innovative, scalable solutions across industries while driving meaningful impact.</p>
+                    <div class="flex justify-center space-x-4">
+                        <div class="w-10 h-10 bg-water-blue/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-water-blue" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-center card-hover">
+                    <div class="w-32 h-32 bg-gradient-to-br from-eco-green to-deep-blue rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-4xl font-bold text-white">J</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Jashwanth Kumar</h3>
+                    <p class="text-lg text-eco-green font-semibold mb-4">Co-Founder</p>
+                    <p class="text-gray-600 mb-6">B.Tech in Computer Science Engineering from SRM University. Technology strategist and AI/ML practitioner with experience in IoT and smart infrastructure projects. Focused on designing data-driven systems that optimize operations and deliver real-world, scalable solutions.</p>
+                    <div class="flex justify-center space-x-4">
+                        <div class="w-10 h-10 bg-eco-green/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-eco-green" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg inline-block">
+                    <p class="text-gray-600 mb-2">Contact the team:</p>
+                    <a href="mailto:iswariya0304@gmail.com" class="text-water-blue font-semibold hover:text-deep-blue transition-colors">
+                        iswariya0304@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 gradient-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-4xl font-bold text-white mb-6">Ready to Transform Urban Water Management?</h2>
+                <p class="text-xl text-white/90 mb-8">Join us in building climate-resilient cities with AI-powered water solutions. Partner with WaterEdge for sustainable urban development.</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <button class="bg-white text-water-blue px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl transition-all">
+                        Schedule Demo
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-water-blue transition-all">
+                        Download Pitch Deck
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-eco-green transition-all">
+                        Investment Inquiry
+                    </button>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 text-white">
+                    <div>
+                        <div class="text-3xl font-bold mb-2">₹50-70 Cr</div>
+                        <div class="text-white/80">Revenue Target (Year 3)</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold mb-2">10%</div>
+                        <div class="text-white/80">Market Penetration Goal</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold mb-2">35M+</div>
+                        <div class="text-white/80">People Impacted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-water-blue to-eco-green rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <span class="text-2xl font-bold">WaterEdge</span>
+                    </div>
+                    <p class="text-gray-400 mb-4 max-w-md">AI-Powered Urban Water Resilience Platform making cities climate-resilient and water-secure through intelligent technology solutions.</p>
+                    <p class="text-gray-400">Contact: <a href="mailto:iswariya0304@gmail.com" class="text-water-blue hover:text-light-green transition-colors">iswariya0304@gmail.com</a></p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Solutions</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">AI Geospatial Analytics</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Smart Floor Plans</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">IoT Monitoring</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Compliance Automation</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Markets</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Government</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Builders & Developers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Smart Cities</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">NGOs & Citizens</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 WaterEdge. All rights reserved. Building climate-resilient cities through AI innovation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate chart bars on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bars = entry.target.querySelectorAll('.chart-bar');
+                    bars.forEach((bar, index) => {
+                        setTimeout(() => {
+                            bar.style.height = bar.style.height || '100%';
+                        }, index * 200);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe chart containers
+        document.querySelectorAll('.chart-bar').forEach(chart => {
+            observer.observe(chart.parentElement);
+        });
+
+        // Add hover effects to cards
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Contact Modal Functionality
+        const contactModal = document.getElementById('contactModal');
+        const contactBtn = document.getElementById('contactBtn');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+        const closeSuccessBtn = document.getElementById('closeSuccessBtn');
+
+        // Form validation functions
+        function validateName(name) {
+            return /^[a-zA-Z\s]{2,50}$/.test(name.trim());
+        }
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+        }
+
+        function validateMessage(message) {
+            return message.trim().length >= 10;
+        }
+
+        // Show/hide error messages
+        function showError(fieldId, show = true) {
+            const errorElement = document.getElementById(fieldId + 'Error');
+            const inputElement = document.getElementById(fieldId);
+            
+            if (show) {
+                errorElement.classList.remove('hidden');
+                inputElement.classList.add('border-red-500');
+                inputElement.classList.remove('border-gray-300');
+            } else {
+                errorElement.classList.add('hidden');
+                inputElement.classList.remove('border-red-500');
+                inputElement.classList.add('border-gray-300');
+            }
+        }
+
+        // Real-time validation
+        document.getElementById('name').addEventListener('input', function() {
+            showError('name', !validateName(this.value));
+        });
+
+        document.getElementById('email').addEventListener('input', function() {
+            showError('email', !validateEmail(this.value));
+        });
+
+        document.getElementById('message').addEventListener('input', function() {
+            showError('message', !validateMessage(this.value));
+        });
+
+        // Open modal
+        contactBtn.addEventListener('click', function() {
+            contactModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close modal functions
+        function closeContactModal() {
+            contactModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            contactForm.reset();
+            // Hide all error messages
+            ['name', 'email', 'message'].forEach(field => showError(field, false));
+            // Show form, hide success message
+            contactForm.parentElement.classList.remove('hidden');
+            successMessage.classList.add('hidden');
+        }
+
+        closeModal.addEventListener('click', closeContactModal);
+        cancelBtn.addEventListener('click', closeContactModal);
+        closeSuccessBtn.addEventListener('click', closeContactModal);
+
+        // Close modal when clicking outside
+        contactModal.addEventListener('click', function(e) {
+            if (e.target === contactModal) {
+                closeContactModal();
+            }
+        });
+
+        // Form submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Validate all fields
+            let isValid = true;
+            
+            if (!validateName(name)) {
+                showError('name', true);
+                isValid = false;
+            } else {
+                showError('name', false);
+            }
+            
+            if (!validateEmail(email)) {
+                showError('email', true);
+                isValid = false;
+            } else {
+                showError('email', false);
+            }
+            
+            if (!validateMessage(message)) {
+                showError('message', true);
+                isValid = false;
+            } else {
+                showError('message', false);
+            }
+            
+            if (!isValid) {
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Submit to Formspree
+            fetch('https://formspree.io/f/xeoldzoa', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    message: message
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    contactForm.parentElement.classList.add('hidden');
+                    successMessage.classList.remove('hidden');
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Sorry, there was an error sending your message. Please try again or contact us directly at iswariya0304@gmail.com');
+            })
+            .finally(() => {
+                // Reset button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+
+        // CTA button interactions (updated to exclude Contact Us)
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.textContent.includes('Demo') && !this.textContent.includes('Contact')) {
+                    alert('Thank you for your interest! Please use the contact form or email iswariya0304@gmail.com to schedule a demo.');
+                } else if (this.textContent.includes('Pitch Deck')) {
+                    alert('Pitch deck download will be available soon. Contact iswariya0304@gmail.com for immediate access.');
+                } else if (this.textContent.includes('Investment')) {
+                    alert('For investment inquiries, please reach out to iswariya0304@gmail.com with your details.');
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97e19f681233a8fb',t:'MTc1NzcwMzM2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
